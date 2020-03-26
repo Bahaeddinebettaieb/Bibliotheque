@@ -3,4 +3,6 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="login">login</string>
+    <string name="mot_de_passe">Mot de Passe</string>
+    <string name="s_inscrire">S\'inscrire</string>
 </resources>

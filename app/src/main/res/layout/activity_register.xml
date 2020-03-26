@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/biblio"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".Register">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="50dp"
+        android:text="Inscription"
+        android:textSize="30dp"
+        android:textColor="@android:color/background_dark"/>
+
+    <!--<EditText-->
+        <!--android:id="@+id/nomPrenom"-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:hint="Nom et Prénom "-->
+        <!--android:textAlignment="center"-->
+        <!--android:inputType="textPersonName" />-->
+
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="Email"
+        android:textAlignment="center"
+        android:background="@android:color/white"
+        android:inputType="textEmailAddress" />
+
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/mot_de_passe"
+        android:textAlignment="center"
+        android:background="@android:color/white"
+        android:inputType="textPassword" />
+
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="#d5ead3"
+        android:text="@string/s_inscrire" />
+
+
+
+
+
+
+</LinearLayout>

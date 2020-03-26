@@ -37,6 +37,8 @@ public class Login extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser()!=null){
                     startActivity(new Intent(Login.this,Dashboard.class));
+                    Toast.makeText(Login.this,"Successful",Toast.LENGTH_LONG).show();
+
                 }
             }
         };
@@ -57,16 +59,16 @@ public class Login extends AppCompatActivity {
 
     private void startSignIn(){
       String emailTest = email.getText().toString();
-      String passwordtest = password.getText().toString();
-      if (TextUtils.isEmpty(emailTest)|| TextUtils.isEmpty(passwordtest)){
+      String passwordTest = password.getText().toString();
+      if (TextUtils.isEmpty(emailTest)|| TextUtils.isEmpty(passwordTest)){
           Toast.makeText(Login.this,"Fields are Empty",Toast.LENGTH_LONG).show();
       }else{
-          mAuth.signInWithEmailAndPassword(emailTest,passwordtest).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+          mAuth.signInWithEmailAndPassword(emailTest,passwordTest).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {
                   if(!task.isSuccessful()){
-                     // Toast.makeText(Login.this,"Sign In problem",Toast.LENGTH_LONG).show();
-                      startActivity(new Intent(Login.this,Dashboard.class));
+                      Toast.makeText(Login.this,"!Successful",Toast.LENGTH_LONG).show();
+                        //startActivity(new Intent(Login.this,Dashboard.class));
                   }
               }
           });
