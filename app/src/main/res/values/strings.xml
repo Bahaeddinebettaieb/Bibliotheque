@@ -5,4 +5,11 @@
     <string name="login">login</string>
     <string name="mot_de_passe">Mot de Passe</string>
     <string name="s_inscrire">S\'inscrire</string>
+    <string name="nom_livre">Nom Livre</string>
+    <string name="titre">Titre</string>
+    <string name="auteur">Auteur</string>
+    <string name="editeur">editeur</string>
+    <string name="nombre_de_pages">Nombre de Pages</string>
+    <string name="isbn">ISBN</string>
+    <string name="ajouter_livre">Ajouter Livre</string>
 </resources>

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lenovo.newpj">
 
-
     <application
         android:name=".FireApp"
         android:allowBackup="true"
@@ -21,7 +20,8 @@
         <activity android:name=".Login" />
         <activity android:name=".Dashboard" />
         <activity android:name=".test" />
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".AjouterLivre"></activity>
     </application>
 
 </manifest>
