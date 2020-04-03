@@ -1,18 +1,34 @@
 package com.example.lenovo.newpj;
 
-import android.widget.EditText;
-
-public class DataItem {
-    String titre,auteur,editeur;
+public class Livre {
     String  nbPage,isbn;
+    String titre,auteur,editeur;
 
+    public Livre(){
 
+    }
 
-        public DataItem(String titre, String auteur, String editeur, String nbPage, String isbn) {
+    public Livre(String nbPage, String isbn, String titre, String auteur, String editeur) {
+        this.nbPage = nbPage;
+        this.isbn = isbn;
         this.titre = titre;
         this.auteur = auteur;
         this.editeur = editeur;
+    }
+
+    public String getNbPage() {
+        return nbPage;
+    }
+
+    public void setNbPage(String nbPage) {
         this.nbPage = nbPage;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
@@ -38,21 +54,5 @@ public class DataItem {
 
     public void setEditeur(String editeur) {
         this.editeur = editeur;
-    }
-
-    public String getNbPage() {
-        return nbPage;
-    }
-
-    public void setNbPage(String nbPage) {
-        this.nbPage = nbPage;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 }
