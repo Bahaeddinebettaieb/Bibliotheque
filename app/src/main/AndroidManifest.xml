@@ -21,7 +21,8 @@
         <activity android:name=".Dashboard" />
         <activity android:name=".test" />
         <activity android:name=".Register" />
-        <activity android:name=".AjouterLivre"></activity>
+        <activity android:name=".AjouterLivre" />
+        <activity android:name=".GetLivre"></activity>
     </application>
 
 </manifest>
