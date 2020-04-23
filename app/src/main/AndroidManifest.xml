@@ -22,7 +22,8 @@
         <activity android:name=".test" />
         <activity android:name=".Register" />
         <activity android:name=".AjouterLivre" />
-        <activity android:name=".GetLivre"></activity>
+        <activity android:name=".GetLivre" />
+        <activity android:name=".Profile"></activity>
     </application>
 
 </manifest>
