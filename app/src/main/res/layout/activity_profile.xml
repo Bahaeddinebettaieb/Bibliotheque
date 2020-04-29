@@ -1,9 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.lenovo.newpj.Profile">
+    android:orientation="vertical"
+    android:background="@drawable/bib2"
+    android:gravity="center_horizontal"
+    tools:context=".Profile">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="372dp"
+        android:layout_height="146dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/avatar"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dp" />
+
+        <TextView
+            android:layout_width="132dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="33dp"
+            android:layout_toRightOf="@+id/image"
+            android:text="My profile"
+            android:textColor="#000"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/nomPrenom"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:background="@android:color/white"
+        android:hint="Nom et Prénom "
+        android:textSize="20dp"
+        android:textAlignment="center" />
+
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:hint="Email"
+        android:textAlignment="center"
+        android:background="@android:color/white" />
+
+    <EditText
+        android:id="@+id/occupation"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:hint="Occupation"
+        android:textAlignment="center"
+        android:background="@android:color/white"/>
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:hint="Phone "
+        android:textSize="20dp"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload" />
+
+
+</LinearLayout>

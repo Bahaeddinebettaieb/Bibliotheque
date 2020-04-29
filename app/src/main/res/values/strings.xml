@@ -12,4 +12,11 @@
     <string name="nombre_de_pages">Nombre de Pages</string>
     <string name="isbn">ISBN</string>
     <string name="ajouter_livre">Ajouter Livre</string>
+    <string name="origine">Origine</string>
+    <string name="specialite">Spécialité</string>
+    <string name="nombre_de_copies">Nombre de copies</string>
+    <string name="nom_donneur">Nom Donneur</string>
+    <string name="situation_professionnelle">Situation Professionnelle</string>
+    <string name="cin">CIN</string>
+    <string name="t_l_phone_donneur">Téléphone Donneur</string>
 </resources>

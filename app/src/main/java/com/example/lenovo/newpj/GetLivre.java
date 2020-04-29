@@ -41,7 +41,7 @@ public class GetLivre extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     livre = ds.getValue(Livre.class);
-                    myArrayList.add( "Titre:" +  " " + livre.getTitre().toString() + "," + " " + "Editeur:" + " " + livre.getEditeur().toString() + ","
+                    myArrayList.add( "Titre:" +  " " + livre.getTitre().toString() + "," + " " + "Editeur:" + " " + livre.getSpecialite().toString() + ","
                             + " " + "Auteur:" + " " + livre.getAuteur().toString());
                 }
                 myListView.setAdapter(myArrayAdapter);

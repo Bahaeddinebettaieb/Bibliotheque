@@ -6,40 +6,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
-    Button etudiant;
-    Button enseignant;
-    Button admin;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        etudiant = (Button)findViewById(R.id.etudiant);
-        enseignant = (Button)findViewById(R.id.enseignant) ;
-        admin = (Button)findViewById(R.id.admin);
 
-        etudiant.setOnClickListener(new View.OnClickListener(){
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public void onClick(View view ){
-                Intent registerIntent = new Intent(MainActivity.this,Login.class);
-                startActivity(registerIntent);
+            public void run() {
+                Intent intent = new Intent(MainActivity.this,Main2Activity.class);
+                startActivity(intent);
+                finish();
             }
-        });
-        enseignant.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view ){
-                Intent registerIntent = new Intent(MainActivity.this,Login.class);
-                startActivity(registerIntent);
-            }
-        });
-        admin.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view ){
-                Intent registerIntent = new Intent(MainActivity.this,Login.class);
-                startActivity(registerIntent);
-            }
-        });
+        },3000);
     }
 
 }

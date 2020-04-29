@@ -1,35 +1,40 @@
 package com.example.lenovo.newpj;
 
 public class Livre {
-    String  nbPage,isbn;
-    String titre,auteur,editeur;
+    String  nbCopie,origine;
+    String titre,auteur,specialite;
+    String nomDonneur,situation,cin,telDonneur;
 
     public Livre(){
 
     }
 
-    public Livre(String nbPage, String isbn, String titre, String auteur, String editeur) {
-        this.nbPage = nbPage;
-        this.isbn = isbn;
+    public Livre(String nbCopie, String origine, String titre, String auteur, String specialite, String nomDonneur, String situation, String cin, String telDonneur) {
+        this.nbCopie = nbCopie;
+        this.origine = origine;
         this.titre = titre;
         this.auteur = auteur;
-        this.editeur = editeur;
+        this.specialite = specialite;
+        this.nomDonneur = nomDonneur;
+        this.situation = situation;
+        this.cin = cin;
+        this.telDonneur = telDonneur;
     }
 
-    public String getNbPage() {
-        return nbPage;
+    public String getNbCopie() {
+        return nbCopie;
     }
 
-    public void setNbPage(String nbPage) {
-        this.nbPage = nbPage;
+    public void setNbCopie(String nbCopie) {
+        this.nbCopie = nbCopie;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getOrigine() {
+        return origine;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
+    public void setOrigine(String origine) {
+        this.origine = origine;
     }
 
     public String getTitre() {
@@ -48,11 +53,43 @@ public class Livre {
         this.auteur = auteur;
     }
 
-    public String getEditeur() {
-        return editeur;
+    public String getSpecialite() {
+        return specialite;
     }
 
-    public void setEditeur(String editeur) {
-        this.editeur = editeur;
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
+    }
+
+    public String getNomDonneur() {
+        return nomDonneur;
+    }
+
+    public void setNomDonneur(String nomDonneur) {
+        this.nomDonneur = nomDonneur;
+    }
+
+    public String getSituation() {
+        return situation;
+    }
+
+    public void setSituation(String situation) {
+        this.situation = situation;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public String getTelDonneur() {
+        return telDonneur;
+    }
+
+    public void setTelDonneur(String telDonneur) {
+        this.telDonneur = telDonneur;
     }
 }

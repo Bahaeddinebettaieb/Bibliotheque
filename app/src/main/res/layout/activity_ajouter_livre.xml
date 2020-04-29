@@ -6,7 +6,7 @@
     android:gravity="center_horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/biblio"
+    android:background="@drawable/bib2"
     tools:context=".AjouterLivre">
 
     <TextView
@@ -27,6 +27,16 @@
         android:textAlignment="center"
         android:inputType="textPersonName" />
 
+    <EditText
+        android:id="@+id/specialite"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/specialite"
+        android:background="@android:color/white"
+        android:textAlignment="center"
+        android:inputType="textPersonName" />
+
 
     <EditText
         android:id="@+id/auteur"
@@ -39,34 +49,65 @@
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/editeur"
+        android:id="@+id/origine"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:hint="@string/editeur"
+        android:hint="@string/origine"
         android:background="@android:color/white"
         android:textAlignment="center"
         android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/nbPage"
+        android:id="@+id/nbCopie"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:hint="@string/nombre_de_pages"
+        android:hint="@string/nombre_de_copies"
         android:background="@android:color/white"
         android:textAlignment="center"
         android:inputType="number" />
 
     <EditText
-        android:id="@+id/isbn"
+        android:id="@+id/nomDonneur"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:hint="@string/isbn"
+        android:hint="@string/nom_donneur"
+        android:background="@android:color/white"
+        android:textAlignment="center"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/situation"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/situation_professionnelle"
+        android:background="@android:color/white"
+        android:textAlignment="center"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/cin"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/cin"
         android:background="@android:color/white"
         android:textAlignment="center"
         android:inputType="number" />
+
+    <EditText
+        android:id="@+id/telephoneDonneur"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:hint="@string/t_l_phone_donneur"
+        android:background="@android:color/white"
+        android:textAlignment="center"
+        android:inputType="number" />
+
 
     <Button
         android:id="@+id/ajouter"

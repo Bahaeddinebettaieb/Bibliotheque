@@ -7,7 +7,7 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 
 public class Dashboard extends AppCompatActivity {
-    CardView ajouterUtilisateur,ajouterLivre,gestionLivre ;
+    CardView ajouterUtilisateur,ajouterLivre,gestionLivre,profileUtilisteur ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,6 +16,7 @@ public class Dashboard extends AppCompatActivity {
         ajouterUtilisateur = (CardView)findViewById(R.id.ajouterUtilisateur);
         ajouterLivre = (CardView)findViewById(R.id.ajouterLivre);
         gestionLivre = (CardView)findViewById(R.id.gestionLivre);
+        profileUtilisteur = (CardView)findViewById(R.id.profileUtilisateur);
 
         ajouterUtilisateur.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +39,14 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View v) {
                 Intent gestionLivreIntent = new Intent (Dashboard.this,GetLivre.class);
                 startActivity(gestionLivreIntent);
+            }
+        });
+
+        profileUtilisteur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profileIntent = new Intent(Dashboard.this,Profile.class);
+                startActivity(profileIntent);
             }
         });
     }

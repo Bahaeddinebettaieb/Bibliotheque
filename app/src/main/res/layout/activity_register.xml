@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/biblio"
+    android:background="@drawable/bib2"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".Register">
@@ -15,8 +14,9 @@
         android:layout_height="42dp"
         android:layout_marginTop="50dp"
         android:text="Inscription"
+        android:textColor="#000"
         android:textSize="30dp"
-        android:textColor="#FFFF"/>
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/nomPrenom"
@@ -66,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enseignant"
-        android:textColor="#FFFF"
+        android:textColor="#000"
         android:textSize="20dp" />
 
     <CheckBox
@@ -74,7 +74,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="Etudiant"
-        android:textColor="#FFFF"
+        android:textColor="#000"
         android:textSize="20dp"/>
 
     <CheckBox
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Administrateur"
-        android:textColor="#FFFF"
+        android:textColor="#000"
         android:textSize="20dp"/>
 
     <Button

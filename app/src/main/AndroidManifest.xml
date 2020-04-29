@@ -17,13 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main2Activity"></activity>
         <activity android:name=".Login" />
         <activity android:name=".Dashboard" />
         <activity android:name=".test" />
         <activity android:name=".Register" />
         <activity android:name=".AjouterLivre" />
         <activity android:name=".GetLivre" />
-        <activity android:name=".Profile"></activity>
+        <activity android:name=".Profile" />
     </application>
 
 </manifest>
