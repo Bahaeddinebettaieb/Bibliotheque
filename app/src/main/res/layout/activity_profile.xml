@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,7 +40,6 @@
         android:id="@+id/nomPrenom"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:background="@android:color/white"
         android:hint="Nom et Prénom "
         android:textSize="20dp"
         android:textAlignment="center" />
@@ -54,25 +52,22 @@
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:hint="Email"
-        android:textAlignment="center"
-        android:background="@android:color/white" />
+        android:textAlignment="center"/>
 
-    <EditText
+    <TextView
         android:id="@+id/occupation"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
         android:textSize="20dp"
         android:hint="Occupation"
-        android:textAlignment="center"
-        android:background="@android:color/white"/>
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/phone"
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
         android:hint="Phone "
         android:textSize="20dp"
         android:textAlignment="center"/>

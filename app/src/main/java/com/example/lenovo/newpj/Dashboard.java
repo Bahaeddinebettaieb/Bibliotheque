@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Dashboard extends AppCompatActivity {
-    CardView ajouterUtilisateur,ajouterLivre,gestionLivre,profileUtilisteur ;
+    CardView ajouterUtilisateur,ajouterLivre,gestionLivre,profileUtilisteur,logout ;
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +20,7 @@ public class Dashboard extends AppCompatActivity {
         ajouterLivre = (CardView)findViewById(R.id.ajouterLivre);
         gestionLivre = (CardView)findViewById(R.id.gestionLivre);
         profileUtilisteur = (CardView)findViewById(R.id.profileUtilisateur);
+        logout = (CardView)findViewById(R.id.logout) ;
 
         ajouterUtilisateur.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,5 +53,18 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(profileIntent);
             }
         });
+
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebaseAuth.getInstance().signOut();
+                Intent loginIntent = new Intent(Dashboard.this,Login.class);
+                finish();
+                startActivity(loginIntent);
+            }
+        });
+
+
     }
 }

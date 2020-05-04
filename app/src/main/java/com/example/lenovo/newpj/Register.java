@@ -153,8 +153,12 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Register.this, "Inscription avec Succès!", Toast.LENGTH_LONG).show();
                             FirebaseUser user = mAuth.getCurrentUser();
+
+
+
+                            Toast.makeText(Register.this, "Inscription avec Succès!", Toast.LENGTH_LONG).show();
+
                             updateUI(user);
                         } else {
                             Toast.makeText(Register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();

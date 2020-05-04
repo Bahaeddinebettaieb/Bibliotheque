@@ -4,7 +4,6 @@ public class User {
     private String nomPrenom,email,password,phone,occupation;
 
     public User() {
-
     }
 
     public User(String email, String password) {
@@ -16,6 +15,14 @@ public class User {
         this.nomPrenom = nomPrenom;
         this.email = email;
         this.password = password;
+        this.phone = phone;
+        this.occupation = occupation;
+
+    }
+
+    public User(String nomPrenom, String email, String phone, String occupation) {
+        this.nomPrenom = nomPrenom;
+        this.email = email;
         this.phone = phone;
         this.occupation = occupation;
 
