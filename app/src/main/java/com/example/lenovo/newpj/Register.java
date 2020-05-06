@@ -154,11 +154,7 @@ public class Register extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-
-
-
                             Toast.makeText(Register.this, "Inscription avec Succès!", Toast.LENGTH_LONG).show();
-
                             updateUI(user);
                         } else {
                             Toast.makeText(Register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
@@ -168,8 +164,9 @@ public class Register extends AppCompatActivity {
     }
 
     public void updateUI(FirebaseUser currentUser){
-        String keyId = mDatabase.push().getKey();
-        mDatabase.child(keyId).setValue(user);
+        String key = mAuth.getCurrentUser().getUid();
+       // String keyId = mDatabase.push().getKey();
+        mDatabase.child(key).setValue(user);
         Intent dashboardIntent = new Intent(this,Dashboard.class);
         startActivity(dashboardIntent);
     }
