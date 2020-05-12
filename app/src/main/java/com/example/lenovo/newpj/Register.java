@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 
 
@@ -46,12 +48,12 @@ public class Register extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference mDatabase;
-    private static final String USER = "user";
     private User user;
     public ImageView imageToUpload;
     public Button choiseImage;
     private Uri filePath;
     private Bitmap bitmap;
+    String key;
 
 
     @Override
@@ -117,8 +119,21 @@ public class Register extends AppCompatActivity {
                     occupation = admin.getText().toString().trim();
                 }
 
+
                 user = new User(nomPrenomTest,emailTest,passwordTest,phoneTest,occupation);
                 registerUser(emailTest,passwordTest);
+                FirebaseDatabase.getInstance().getReference("USER").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(Register.this, "Id ajoutee!", Toast.LENGTH_LONG).show();
+                        }else{
+                            Toast.makeText(Register.this, "Failed!", Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
             }
         });
 
@@ -155,19 +170,16 @@ public class Register extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(Register.this, "Inscription avec Succès!", Toast.LENGTH_LONG).show();
-                            updateUI(user);
                         } else {
-                            Toast.makeText(Register.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                });
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    public void updateUI(FirebaseUser currentUser){
-        String key = mAuth.getCurrentUser().getUid();
-       // String keyId = mDatabase.push().getKey();
-        mDatabase.child(key).setValue(user);
-        Intent dashboardIntent = new Intent(this,Dashboard.class);
-        startActivity(dashboardIntent);
-    }
 }

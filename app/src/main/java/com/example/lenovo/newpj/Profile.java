@@ -56,9 +56,9 @@ public class Profile extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.phone);
         occupation = (EditText) findViewById(R.id.occupation);
         update = (Button) findViewById(R.id.update);
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        pd = new ProgressDialog(Profile.this);
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
+//
+//        pd = new ProgressDialog(Profile.this);
 
         database = FirebaseDatabase.getInstance();
         mDatabase = database.getReference("USER");
@@ -192,7 +192,7 @@ public class Profile extends AppCompatActivity {
    }
 
    public void Update(){
-        if (isNameChanged() || isMailChanged()){
+        if (isNameChanged() || isMailChanged() || isOccupationChanged() || isPhoneChanged()){
            Toast.makeText(Profile.this, "Data has been updated...",Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(Profile.this, "Data is same and cannot be updated",Toast.LENGTH_SHORT).show();
@@ -213,6 +213,24 @@ public class Profile extends AppCompatActivity {
     private boolean isNameChanged() {
         if (!nomPrenomTest.equals(nomPrenom.getText().toString())){
            mDatabase.child(user.getUid()).child("nomPrenom").setValue(nomPrenom.getText().toString());
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean isOccupationChanged(){
+        if (occupationTest.equals(occupation.getText().toString())) {
+            mDatabase.child(user.getUid()).child("occupation").setValue(occupation.getText().toString());
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private boolean isPhoneChanged(){
+        if (phoneTest.equals(phone.getText().toString())){
+            mDatabase.child(user.getUid()).child("phone").setValue(phone.getText().toString());
             return true;
         }else{
             return false;

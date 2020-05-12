@@ -1,7 +1,7 @@
 package com.example.lenovo.newpj;
 
 public class User {
-    private String nomPrenom,email,password,phone,occupation;
+    private String nomPrenom,email,password,phone,occupation,uid;
 
     public User() {
     }
@@ -11,12 +11,13 @@ public class User {
         this.password = password;
     }
 
-    public User(String nomPrenom, String email, String password, String phone, String occupation) {
+    public User(String nomPrenom, String email, String password, String phone, String occupation){
         this.nomPrenom = nomPrenom;
         this.email = email;
         this.password = password;
         this.phone = phone;
         this.occupation = occupation;
+        //this.uid = uid;
 
     }
 
@@ -66,5 +67,13 @@ public class User {
 
     public void setOccupation(String occupation) {
         this.occupation = occupation;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
