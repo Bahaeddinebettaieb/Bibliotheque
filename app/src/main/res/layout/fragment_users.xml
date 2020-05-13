@@ -4,15 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bib2"
-    tools:context=".ChatListFragment">
+    tools:context=".UsersFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="#000"
-        android:textSize="30sp"
-        android:text="Chat List" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/allUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

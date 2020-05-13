@@ -3,9 +3,11 @@ package com.example.lenovo.newpj;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,8 @@ public class AjouterLivre extends AppCompatActivity {
     DatabaseReference myRef;
     Livre livre;
     long maxId = 0;
+    BottomNavigationView navigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,10 @@ public class AjouterLivre extends AppCompatActivity {
         cin = (EditText) findViewById(R.id.cin);
         telDonneur = (EditText) findViewById(R.id.telephoneDonneur);
         ajouter = (Button) findViewById(R.id.ajouter);
+
+        navigation = (BottomNavigationView)findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(selectedListener);
+
 
 
         livre = new Livre();
@@ -80,4 +88,33 @@ public class AjouterLivre extends AppCompatActivity {
         });
 
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener selectedListener=
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId()){
+                        case R.id.nav_home:
+                            Intent intentDash = new Intent(AjouterLivre.this,Dashboard.class);
+                            startActivity(intentDash);
+                            return true;
+                        case R.id.nav_profile:
+                            Intent intentProfile = new Intent(AjouterLivre.this,Profile.class);
+                            startActivity(intentProfile);
+                            return true;
+
+                        case R.id.nav_users:
+//                            actionBar =getSupportActionBar();
+//                            actionBar.setTitle("Users");
+//                            UsersFragment fragmentUser = new UsersFragment();
+//                            FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+//                            ft1.replace(R.id.content,fragmentUser,"");
+//                            ft1.commit();
+//                            return true;
+                            Intent intentGet = new Intent(AjouterLivre.this,GetAllUsers.class);
+                            startActivity(intentGet);
+                    }
+                    return false;
+                }
+            };
 }

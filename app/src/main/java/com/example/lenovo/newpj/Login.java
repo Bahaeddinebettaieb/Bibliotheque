@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ public class Login extends AppCompatActivity {
     EditText email;
     EditText password;
     Button login;
+    User c;
 
     private FirebaseAuth mAuth;
 
@@ -44,20 +46,20 @@ public class Login extends AppCompatActivity {
         login = (Button)findViewById(R.id.login);
 
         mAuth = FirebaseAuth.getInstance();
-//
-//
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser firebaseUser = mAuth.getCurrentUser();
-//                if (firebaseUser!=null){
-//                    startActivity(new Intent(Login.this,Dashboard.class));
-//                    Toast.makeText(Login.this,"You are logged in ",Toast.LENGTH_LONG).show();
-//                }else{
-//                    Toast.makeText(Login.this,"Please login",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
+
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                if (firebaseUser!=null){
+                    startActivity(new Intent(Login.this,Dashboard.class));
+                    Toast.makeText(Login.this,"You are logged in ",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(Login.this,"Please login",Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +69,11 @@ public class Login extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onStart(){
-//        super.onStart();
-//        mAuth.addAuthStateListener(mAuthListener);
-//    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
     private void startSignIn(){
       String emailTest = email.getText().toString();
@@ -88,11 +90,38 @@ public class Login extends AppCompatActivity {
           mAuth.signInWithEmailAndPassword(emailTest,passwordTest).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
               @Override
               public void onComplete(@NonNull Task<AuthResult> task) {
-                  if(!task.isSuccessful()){
-                      Toast.makeText(Login.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                  }else{
+                  if(task.isSuccessful()){
+                      FirebaseUser user = mAuth.getCurrentUser();
+
+                      if (task.getResult().getAdditionalUserInfo().isNewUser()){
+                          String email = user.getEmail();
+                          String uid = user.getUid();
+
+
+
+                          HashMap<Object,String>hashMap = new HashMap<>();
+                          hashMap.put("email",email);
+                          hashMap.put("uid",uid);
+                          hashMap.put("nomPrenom",c.getNomPrenom());
+                          hashMap.put("occupation",c.getOccupation());
+                          hashMap.put("onlineStatus","online");
+                          hashMap.put("password",c.getPassword());
+                          hashMap.put("phone",c.getPhone());
+
+                          FirebaseDatabase database = FirebaseDatabase.getInstance();
+                          DatabaseReference mDatabase = database.getReference("USER");
+                          mDatabase.child(uid).setValue(hashMap);
+                      }
                       startActivity(new Intent(Login.this,Dashboard.class));
+                  }else{
+                      Toast.makeText(Login.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                   }
+              }
+          }).addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                  Toast.makeText(Login.this,e.getMessage(),Toast.LENGTH_LONG).show();
+
               }
           });
       }

@@ -25,7 +25,8 @@
         <activity android:name=".AjouterLivre" />
         <activity android:name=".GetLivre" />
         <activity android:name=".Profile" />
-        <activity android:name=".Message"></activity>
+        <activity android:name=".Message" />
+        <activity android:name=".GetAllUsers"></activity>
     </application>
 
 </manifest>

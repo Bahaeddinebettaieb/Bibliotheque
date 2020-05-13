@@ -55,6 +55,7 @@ public class Register extends AppCompatActivity {
     private Bitmap bitmap;
     String key;
 
+    String nomPrenomTest,occupation,phoneTest,passwordTest,emailTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,17 +89,17 @@ public class Register extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailTest = email.getText().toString().trim();
-                String passwordTest = password.getText().toString().trim();
+                 emailTest = email.getText().toString().trim();
+                 passwordTest = password.getText().toString().trim();
 
                 if (TextUtils.isEmpty(emailTest) || (TextUtils.isEmpty(passwordTest) || (passwordTest.length() < 6) ) ){
                     Toast.makeText(Register.this, "S'il vous plait vérifier votre Email ou mot de passe", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                String nomPrenomTest = nomPrenom.getText().toString().trim();
-                String phoneTest = phone.getText().toString().trim();
-                String occupation = null;
+                nomPrenomTest = nomPrenom.getText().toString().trim();
+                phoneTest = phone.getText().toString().trim();
+                occupation = null;
 
                 if(TextUtils.isEmpty(nomPrenomTest) || (TextUtils.isEmpty(phoneTest))){
                     Toast.makeText(Register.this, "S'il vous plait vérifier votre nom ou téléphone sont remplis ou non", Toast.LENGTH_LONG).show();
@@ -122,18 +123,7 @@ public class Register extends AppCompatActivity {
 
                 user = new User(nomPrenomTest,emailTest,passwordTest,phoneTest,occupation);
                 registerUser(emailTest,passwordTest);
-                FirebaseDatabase.getInstance().getReference("USER").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            Toast.makeText(Register.this, "Id ajoutee!", Toast.LENGTH_LONG).show();
-                        }else{
-                            Toast.makeText(Register.this, "Failed!", Toast.LENGTH_LONG).show();
 
-                        }
-                    }
-                });
             }
         });
 
@@ -168,7 +158,25 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
                             FirebaseUser user = mAuth.getCurrentUser();
+                            String email = user.getEmail();
+                            String uid = user.getUid();
+
+                            HashMap<Object,String>hashMap = new HashMap<>();
+                            hashMap.put("email",email);
+                            hashMap.put("uid",uid);
+                            hashMap.put("nomPrenom",nomPrenomTest);
+                            hashMap.put("onlineStatus","Online");
+                            hashMap.put("occupation",occupation);
+                            hashMap.put("password",passwordTest);
+                            hashMap.put("phone",phoneTest);
+
+                            database = FirebaseDatabase.getInstance();
+                            mDatabase = database.getReference("USER");
+                            mDatabase.child(uid).setValue(hashMap);
+
+
                             Toast.makeText(Register.this, "Inscription avec Succès!", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(Register.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();

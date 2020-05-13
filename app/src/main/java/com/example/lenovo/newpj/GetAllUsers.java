@@ -1,13 +1,10 @@
 package com.example.lenovo.newpj;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,34 +17,26 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class UsersFragment extends Fragment {
+public class GetAllUsers extends AppCompatActivity {
     RecyclerView allUsers;
     AdapterUser adapterUser;
-    List<User>userList;
-
-    public UsersFragment() {
-
-    }
+    List<User> userList;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_get_all_users);
 
-//        View view = inflater.inflate(R.layout.fragment_users, container, false);
-        View view = inflater.inflate(R.layout.activity_get_all_users, container, false);
-
-        allUsers = view.findViewById(R.id.allUsers);
+        allUsers = findViewById(R.id.allUsers);
         allUsers.setHasFixedSize(true);
-        allUsers.setLayoutManager(new LinearLayoutManager(getActivity()));
-        setHasOptionsMenu(true);
+        allUsers.setLayoutManager(new LinearLayoutManager(GetAllUsers.this));
+        //setHasOptionsMenu(true);
 
 
         userList = new ArrayList<>();
 
         getAllUsers();
-        return view;
+        //return view;
     }
 
     private void getAllUsers() {
@@ -63,7 +52,7 @@ public class UsersFragment extends Fragment {
                     if (!modelUser.getUid().equals(user.getUid())){
                         userList.add(modelUser);
                     }
-                    adapterUser = new AdapterUser(getActivity(),userList);
+                    adapterUser = new AdapterUser(GetAllUsers.this,userList);
                     allUsers.setAdapter(adapterUser);
                 }
             }
@@ -74,6 +63,4 @@ public class UsersFragment extends Fragment {
             }
         });
     }
-
-
 }
