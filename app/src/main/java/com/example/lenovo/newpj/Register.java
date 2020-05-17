@@ -168,6 +168,7 @@ public class Register extends AppCompatActivity {
                             hashMap.put("uid",uid);
                             hashMap.put("nomPrenom",nomPrenomTest);
                             hashMap.put("onlineStatus","Online");
+                            hashMap.put("typingTo","noOne");
                             hashMap.put("occupation",occupation);
                             hashMap.put("password",passwordTest);
                             hashMap.put("phone",phoneTest);

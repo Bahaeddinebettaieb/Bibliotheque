@@ -1,6 +1,7 @@
 package com.example.lenovo.newpj;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -14,14 +15,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.lenovo.newpj.notifications.Token;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Dashboard extends AppCompatActivity {
     CardView ajouterUtilisateur,ajouterLivre,gestionLivre,profileUtilisteur,logout,message ;
     BottomNavigationView navigation;
     Toolbar toolbar;
     FirebaseAuth firebaseAuth;
+    FirebaseDatabase database;
+    DatabaseReference mRef;
     ActionBar actionBar;
+    String mUID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +45,8 @@ public class Dashboard extends AppCompatActivity {
         navigation = (BottomNavigationView)findViewById(R.id.navigation);
 
 
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference("USER");
 
 
         ajouterUtilisateur.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +94,10 @@ public class Dashboard extends AppCompatActivity {
 
         navigation.setOnNavigationItemSelectedListener(selectedListener);
 
+        checkUserStatus();
+
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
 
     }
 
@@ -102,6 +117,27 @@ public class Dashboard extends AppCompatActivity {
             startActivity(loginIntent);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void updateToken(String token){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token mToken = new Token((token));
+        ref.child(mUID).setValue(mToken);
+    }
+
+    private void checkUserStatus(){
+        FirebaseAuth user = FirebaseAuth.getInstance();
+        if (user.getCurrentUser().getUid() !=null){
+            mUID = user.getUid();
+            SharedPreferences sp = getSharedPreferences("SP_USER",MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString("Current_USERID",mUID);
+            editor.apply();
+        }else{
+            startActivity(new Intent(Dashboard.this,MainActivity.class));
+            finish();
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener=
@@ -125,4 +161,16 @@ public class Dashboard extends AppCompatActivity {
                     return false;
                 }
             };
+
+    @Override
+    protected void onStart() {
+        checkUserStatus();
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        checkUserStatus();
+        super.onResume();
+    }
 }

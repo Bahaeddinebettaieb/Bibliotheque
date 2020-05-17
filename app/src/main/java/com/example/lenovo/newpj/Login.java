@@ -105,6 +105,7 @@ public class Login extends AppCompatActivity {
                           hashMap.put("nomPrenom",c.getNomPrenom());
                           hashMap.put("occupation",c.getOccupation());
                           hashMap.put("onlineStatus","online");
+                          hashMap.put("typingTo","noOne");
                           hashMap.put("password",c.getPassword());
                           hashMap.put("phone",c.getPhone());
 

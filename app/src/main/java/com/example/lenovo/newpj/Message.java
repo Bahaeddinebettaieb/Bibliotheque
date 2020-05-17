@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +19,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lenovo.newpj.notifications.APIService;
+import com.example.lenovo.newpj.notifications.Client;
+import com.example.lenovo.newpj.notifications.Data;
+import com.example.lenovo.newpj.notifications.Response;
+import com.example.lenovo.newpj.notifications.Sender;
+import com.example.lenovo.newpj.notifications.Token;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,6 +39,9 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class Message extends AppCompatActivity {
 
@@ -54,6 +65,9 @@ public class Message extends AppCompatActivity {
      String hisUid;
      String myUid;
 
+     APIService apiService;
+     boolean notify = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +89,7 @@ public class Message extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
 
         Intent intent =getIntent();
@@ -92,18 +107,21 @@ public class Message extends AppCompatActivity {
                     String name = "" + ds.child("nomPrenom").getValue();
                     String image = "" + ds.child("email").getValue();
                     String onlineStatus = "" + ds.child("onlineStatus").getValue();
+                    String typingStatus = "" + ds.child("typingTo").getValue();
 
-                    if (onlineStatus.equals("online")){
-                        userStatusTv.setText(onlineStatus);
+                    if (typingStatus.equals(myUid)){
+                        userStatusTv.setText("typing...");
                     }else{
-                        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-                        cal.setTimeInMillis(Long.parseLong(onlineStatus));
-                        String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa",cal).toString();
-                        userStatusTv.setText("Last seen at : " + dateTime);
+                        if (onlineStatus.equals("online")){
+                            userStatusTv.setText(onlineStatus);
+                        }else{
+                            Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+                            cal.setTimeInMillis(Long.parseLong(onlineStatus));
+                            String dateTime = DateFormat.format("dd/MM/yyyy hh:mm aa",cal).toString();
+                            userStatusTv.setText("Last seen at : " + dateTime);
+                        }
                     }
-
                     nameTv.setText(name);
-
                 }
             }
 
@@ -116,6 +134,7 @@ public class Message extends AppCompatActivity {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notify = true;
                 String message = messageEt.getText().toString().trim();
 
                 if (TextUtils.isEmpty(message)){
@@ -123,6 +142,28 @@ public class Message extends AppCompatActivity {
                 }else{
                     sendMessage(message);
                 }
+                messageEt.setText(" ");
+            }
+        });
+
+        messageEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() == 0){
+                    checkTypingStatus("noOne");
+                }else{
+                    checkTypingStatus(hisUid);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -181,7 +222,7 @@ public class Message extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String message){
+    private void sendMessage(final String message){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         String timeStamp = String.valueOf(System.currentTimeMillis());
 
@@ -193,7 +234,58 @@ public class Message extends AppCompatActivity {
         hashMap.put("isSeen",false);
         databaseReference.child("Chats").push().setValue(hashMap);
 
-        messageEt.setText(" ");
+        String msg = message;
+        final DatabaseReference database = FirebaseDatabase.getInstance().getReference("USER").child(myUid);
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+
+                if (notify){
+                    sendNotification(hisUid,user.getNomPrenom(),message);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void sendNotification(final String hisUid, final String name, final String message){
+        DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = allTokens.orderByKey().equalTo(hisUid);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(myUid,name+":"+message, "New Message",hisUid, R.drawable.ic_profile);
+
+                    Sender sender = new Sender(data, token.getToken());
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<Response>() {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                    Toast.makeText(Message.this, ""+response.message(), Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t) {
+
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void checkUserStatus(){
@@ -214,6 +306,14 @@ public class Message extends AppCompatActivity {
         dbRef.updateChildren(hashMap);
     }
 
+    private void checkTypingStatus(String typing){
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("USER").child(myUid);
+        HashMap<String,Object> hashMap = new HashMap<>();
+        hashMap.put("typingTo",typing);
+
+        dbRef.updateChildren(hashMap);
+    }
+
     @Override
     protected void onStart() {
         checkUserStatus();
@@ -224,9 +324,9 @@ public class Message extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
         String timeStamp = String.valueOf(System.currentTimeMillis());
         checkOnlineStatus(timeStamp);
+        checkTypingStatus("noOne");
         userRef.removeEventListener(seenListener);
     }
 
