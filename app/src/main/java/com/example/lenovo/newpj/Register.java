@@ -37,17 +37,22 @@ import java.util.Random;
 
 
 public class Register extends AppCompatActivity {
+
     private static final int PICK_IMAGE = 100;
+
     EditText nomPrenom;
     EditText email;
     EditText password;
     EditText phone;
     Button register;
     CheckBox admin,enseignant,etudiant;
+
     private ProgressDialog progressDialog;
+
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference mDatabase;
+
     private User user;
     public ImageView imageToUpload;
     public Button choiseImage;

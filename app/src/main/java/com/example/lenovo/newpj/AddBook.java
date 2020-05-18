@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -50,6 +51,7 @@ public class AddBook extends AppCompatActivity {
     EditText titre, auteur, specialite, nbCopie, origine, nomDonneur, situation, cin, telephoneDonneur, description;
     ImageView imageIv;
     Button uploadBtn;
+    BottomNavigationView navigation;
 
     private static final int CAMERA_REQUEST_CODE = 100;
     private static final int STORAGE_REQUEST_CODE = 200;
@@ -110,6 +112,10 @@ public class AddBook extends AppCompatActivity {
         description = (EditText) findViewById(R.id.description);
         uploadBtn = (Button) findViewById(R.id.uploadBtn);
         imageIv = (ImageView) findViewById(R.id.bImageIv);
+
+        navigation = (BottomNavigationView)findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(selectedListener);
+
 
         imageIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +198,6 @@ public class AddBook extends AppCompatActivity {
         String filePathAndName = "Books/" + "book_" + timeStamp;
 
         if (!uri.equals("noImage")){
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             StorageReference ref = FirebaseStorage.getInstance().getReference().child(filePathAndName);
             ref.putFile(Uri.parse(uri)).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -473,4 +478,26 @@ public class AddBook extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener selectedListener=
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    switch (menuItem.getItemId()){
+                        case R.id.nav_home:
+                            Intent intentDash = new Intent(AddBook.this,Dashboard.class);
+                            startActivity(intentDash);
+                            return true;
+                        case R.id.nav_profile:
+                            Intent intentProfile = new Intent(AddBook.this,Profile.class);
+                            startActivity(intentProfile);
+                            return true;
+
+                        case R.id.nav_users:
+                            Intent intentGet = new Intent(AddBook.this,GetAllUsers.class);
+                            startActivity(intentGet);
+                    }
+                    return false;
+                }
+            };
 }
