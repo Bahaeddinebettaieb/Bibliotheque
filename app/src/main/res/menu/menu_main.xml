@@ -4,9 +4,17 @@
 
     <item android:id="@+id/action_logout"
         android:title="Logout"/>
+
+
     <item android:id="@+id/search"
         android:title="action_search"
         android:icon="@drawable/ic_search"
+        app:showAsAction="always" />
+
+
+    <item android:id="@+id/addBook"
+        android:title="action_add_book"
+        android:icon="@drawable/ic_add_book"
         app:showAsAction="always" />
 
 </menu>

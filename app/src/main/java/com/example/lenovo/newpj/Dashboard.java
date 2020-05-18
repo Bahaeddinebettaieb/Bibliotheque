@@ -60,8 +60,11 @@ public class Dashboard extends AppCompatActivity {
         ajouterLivre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ajouterLivreIntent = new Intent(Dashboard.this,AjouterLivre.class);
-                startActivity(ajouterLivreIntent);
+//                Intent ajouterLivreIntent = new Intent(Dashboard.this,AjouterLivre.class);
+//                startActivity(ajouterLivreIntent);
+                Intent addBookIntent = new Intent(Dashboard.this,AddBook.class);
+                finish();
+                startActivity(addBookIntent);
             }
         });
 
@@ -115,6 +118,12 @@ public class Dashboard extends AppCompatActivity {
             Intent loginIntent = new Intent(Dashboard.this,Login.class);
             finish();
             startActivity(loginIntent);
+        }
+
+        if(id== R.id.addBook){
+            Intent addBookIntent = new Intent(Dashboard.this,AddBook.class);
+            finish();
+            startActivity(addBookIntent);
         }
         return super.onOptionsItemSelected(item);
     }
