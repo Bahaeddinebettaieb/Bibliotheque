@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:name=".FireApp"
         android:allowBackup="true"
@@ -27,7 +26,6 @@
         <activity android:name=".Dashboard" />
         <activity android:name=".test" />
         <activity android:name=".Register" />
-        <activity android:name=".AjouterLivre" />
         <activity android:name=".GetLivre" />
         <activity android:name=".Profile" />
         <activity android:name=".Message" />
@@ -51,6 +49,13 @@
         </service>
 
         <activity android:name=".AddBook">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GetAllBooks">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

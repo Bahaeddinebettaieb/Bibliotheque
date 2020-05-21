@@ -4,19 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,22 +34,16 @@ import java.util.Random;
 
 
 public class Register extends AppCompatActivity {
-
     private static final int PICK_IMAGE = 100;
 
-    EditText nomPrenom;
-    EditText email;
-    EditText password;
-    EditText phone;
-    Button register;
-    CheckBox admin,enseignant,etudiant;
+    private EditText nomPrenom,email,password,phone;
 
+    private Button register;
+    private CheckBox admin,enseignant,etudiant;
     private ProgressDialog progressDialog;
-
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private DatabaseReference mDatabase;
-
     private User user;
     public ImageView imageToUpload;
     public Button choiseImage;
@@ -75,8 +66,8 @@ public class Register extends AppCompatActivity {
         admin = (CheckBox)findViewById(R.id.admin);
         enseignant = (CheckBox)findViewById(R.id.enseignant);
         etudiant = (CheckBox)findViewById(R.id.etudiant);
-        imageToUpload = (ImageView)findViewById(R.id.imageToUpload);
-        choiseImage = (Button)findViewById(R.id.choiseImage);
+        //imageToUpload = (ImageView)findViewById(R.id.imageToUpload);
+        //choiseImage = (Button)findViewById(R.id.choiseImage);
         progressDialog = new ProgressDialog(this);
 
         database = FirebaseDatabase.getInstance();

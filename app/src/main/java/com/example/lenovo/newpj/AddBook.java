@@ -1,12 +1,9 @@
 package com.example.lenovo.newpj;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -32,7 +29,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -64,7 +60,7 @@ public class AddBook extends AppCompatActivity {
     String[] storagesPerssions;
     Uri image_uri = null;
 
-    String name,email,uid,dp;
+    String nomPrenom,email,uid,dp;
 
     FirebaseAuth firebaseAuth;
     DatabaseReference mRef;
@@ -89,7 +85,7 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()){
-                    name = "" + ds.child("nomPrenom").getValue();
+                    nomPrenom = "" + ds.child("nomPrenom").getValue();
                     email = "" + ds.child("email").getValue();
                 }
             }
@@ -99,6 +95,7 @@ public class AddBook extends AppCompatActivity {
 
             }
         });
+
 
         titre = (EditText) findViewById(R.id.title);
         auteur = (EditText) findViewById(R.id.auteur);
@@ -209,7 +206,7 @@ public class AddBook extends AppCompatActivity {
                     if (uriTask.isSuccessful()){
                         HashMap<Object,String> hashMap = new HashMap<>();
                         hashMap.put("uid",uid);
-                        hashMap.put("nomPrenom",name);
+                        hashMap.put("nomPrenom",nomPrenom);
                         hashMap.put("email",email);
                         hashMap.put("bId",timeStamp);
                         hashMap.put("bTitre",titleT);
@@ -223,6 +220,8 @@ public class AddBook extends AppCompatActivity {
                         hashMap.put("dNomDonneur",nomDonneurT);
                         hashMap.put("dCIN",cinT);
                         hashMap.put("dTelephone",telephonneDonneurT);
+
+                       // System.out.println("This is my name " + );
 
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Books");
                         ref.child(timeStamp).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -262,7 +261,7 @@ public class AddBook extends AppCompatActivity {
         }else{
             HashMap<Object,String> hashMap = new HashMap<>();
             hashMap.put("uid",uid);
-            hashMap.put("nomPrenom",name);
+            hashMap.put("nomPrenom",nomPrenom);
             hashMap.put("email",email);
             hashMap.put("bId",timeStamp);
             hashMap.put("bTitre",titleT);
@@ -397,7 +396,6 @@ public class AddBook extends AppCompatActivity {
         }
     }
 
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -488,6 +486,7 @@ public class AddBook extends AppCompatActivity {
                             Intent intentDash = new Intent(AddBook.this,Dashboard.class);
                             startActivity(intentDash);
                             return true;
+
                         case R.id.nav_profile:
                             Intent intentProfile = new Intent(AddBook.this,Profile.class);
                             startActivity(intentProfile);

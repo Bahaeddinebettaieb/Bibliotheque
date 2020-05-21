@@ -71,7 +71,7 @@ public class Dashboard extends AppCompatActivity {
         gestionLivre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gestionLivreIntent = new Intent (Dashboard.this,GetLivre.class);
+                Intent gestionLivreIntent = new Intent (Dashboard.this,GetAllBooks.class);
                 startActivity(gestionLivreIntent);
             }
         });
