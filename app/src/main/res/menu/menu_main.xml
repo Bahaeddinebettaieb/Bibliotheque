@@ -17,4 +17,9 @@
         android:icon="@drawable/ic_add_book"
         app:showAsAction="always" />
 
+    <item android:id="@+id/showCartItems"
+        android:title="Show Cart Items"
+        android:icon="@drawable/ic_add_cart"
+        app:showAsAction="always"/>
+
 </menu>

@@ -255,10 +255,6 @@
 
         </android.support.design.widget.BottomNavigationView>
 
-
-
     </LinearLayout>
-
-
 
 </ScrollView>

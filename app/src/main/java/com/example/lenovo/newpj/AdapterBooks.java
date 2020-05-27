@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
@@ -102,7 +100,7 @@ public class AdapterBooks extends RecyclerView.Adapter<AdapterBooks.MyHolder> {
     }
 
     private void showAddCart(Book book) {
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_quantity,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_book,null);
 
         ImageView bookIv  = view.findViewById(R.id.bookIv);
         final TextView titleTv = view.findViewById(R.id.titleTv);
@@ -167,6 +165,8 @@ public class AdapterBooks extends RecyclerView.Adapter<AdapterBooks.MyHolder> {
 
     }
 
+
+
     @Override
     public int getItemCount() {
         return bookList.size();
@@ -190,7 +190,8 @@ public class AdapterBooks extends RecyclerView.Adapter<AdapterBooks.MyHolder> {
             moreBtn = itemView.findViewById(R.id.moreBtn);
             ajouterPanier = itemView.findViewById(R.id.ajouterPanier);
             reserverLivre = itemView.findViewById(R.id.reserverLivre);
-
         }
     }
+
+
 }
