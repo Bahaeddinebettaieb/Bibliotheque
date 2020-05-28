@@ -116,8 +116,9 @@ public class Register extends AppCompatActivity {
                     occupation = admin.getText().toString().trim();
                 }
 
+                boolean block = user.isBlocked();
 
-                user = new User(nomPrenomTest,emailTest,passwordTest,phoneTest,occupation);
+                user = new User(nomPrenomTest,emailTest,passwordTest,phoneTest,occupation,block);
                 registerUser(emailTest,passwordTest);
 
             }

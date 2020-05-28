@@ -2,6 +2,7 @@ package com.example.lenovo.newpj;
 
 public class User {
     private String nomPrenom,email,password,phone,occupation,uid;
+    private boolean isBlocked = false;
 
     public User() {
     }
@@ -11,22 +12,23 @@ public class User {
         this.password = password;
     }
 
-    public User(String nomPrenom, String email, String password, String phone, String occupation){
+    public User(String nomPrenom, String email, String password, String phone, String occupation, boolean isBlocked){
         this.nomPrenom = nomPrenom;
         this.email = email;
         this.password = password;
         this.phone = phone;
         this.occupation = occupation;
+        this.isBlocked = isBlocked;
         //this.uid = uid;
 
     }
 
-    public User(String nomPrenom, String email, String phone, String occupation) {
-        this.nomPrenom = nomPrenom;
-        this.email = email;
-        this.phone = phone;
-        this.occupation = occupation;
+    public boolean isBlocked() {
+        return isBlocked;
+    }
 
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
     }
 
     public String getNomPrenom() {

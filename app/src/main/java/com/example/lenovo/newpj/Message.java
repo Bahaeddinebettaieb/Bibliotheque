@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,8 @@ import com.example.lenovo.newpj.notifications.Data;
 import com.example.lenovo.newpj.notifications.Response;
 import com.example.lenovo.newpj.notifications.Sender;
 import com.example.lenovo.newpj.notifications.Token;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,6 +53,7 @@ public class Message extends AppCompatActivity {
      TextView nameTv,userStatusTv;
      EditText messageEt;
      ImageButton sendBtn;
+     ImageView blockTv;
 
      FirebaseAuth firebaseAuth;
      FirebaseDatabase database;
@@ -64,6 +68,8 @@ public class Message extends AppCompatActivity {
 
      String hisUid;
      String myUid;
+
+     boolean isBlocked =false;
 
      APIService apiService;
      boolean notify = false;
@@ -82,6 +88,7 @@ public class Message extends AppCompatActivity {
         userStatusTv = (TextView)findViewById(R.id.userStatut);
         messageEt = (EditText)findViewById(R.id.messageEt);
         sendBtn = (ImageButton)findViewById(R.id.sendBtn);
+        blockTv = (ImageView)findViewById(R.id.blockTv);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
@@ -167,10 +174,97 @@ public class Message extends AppCompatActivity {
             }
         });
 
+        blockTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isBlocked ){
+                    unBlockUser();
+                }else{
+                    blockUser();
+                }
+            }
+        });
+
         readMessage();
+        checkIsBlocked();
         seenMessage();
     }
 
+    private void checkIsBlocked() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("USER");
+        ref.child(firebaseAuth.getUid()).child("BlockedUsers").orderByChild("uid").equalTo(hisUid)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            if (ds.exists()){
+                                blockTv.setImageResource(R.drawable.ic_block);
+                                isBlocked = true;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+    }
+
+    private void blockUser() {
+
+        HashMap<String,String> hashMap = new HashMap<>();
+        hashMap.put("uid",hisUid);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("USER");
+        ref.child(myUid).child("BlockedUsers").child(hisUid).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(Message.this, "Blocked Successfully...", Toast.LENGTH_SHORT).show();
+                blockTv.setImageResource(R.drawable.ic_block);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Message.this, "Failed"+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void unBlockUser() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("USER");
+        ref.child(myUid).child("BlockedUsers").orderByChild("uid").equalTo(hisUid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds : dataSnapshot.getChildren()){
+                            if (ds.exists()){
+                                ds.getRef().removeValue()
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(Message.this, "Unbloked Successfully...", Toast.LENGTH_SHORT).show();
+                                                blockTv.setImageResource(R.drawable.ic_unblock);
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(Message.this, "Failed:"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
 
     private void seenMessage() {
         userRef = FirebaseDatabase.getInstance().getReference("Chats");
