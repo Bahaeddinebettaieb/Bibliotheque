@@ -1,57 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bib2"
+    android:orientation="vertical"
     tools:context=".Login">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="113dp"
-        android:text="Connexion"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="20sp"
+        android:text="Login"
         android:textAlignment="center"
-        android:textSize="35dp"
+        android:textSize="40dp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_width="330dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
-        android:background="@android:color/white"
-        android:hint="@string/email"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="187dp"
+        android:background="#FFF"
+        android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="26dp" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="173dp"
-        android:background="@android:color/white"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:textAlignment="center" />
-
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="286dp"
+        android:background="#FFF"
+        android:hint="Password"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:textSize="26dp" />
 
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp"
-        android:background="#d5ead3"
-        android:text="@string/login" />
+        android:layout_marginBottom="97dp"
+        android:text="Login" />
+
+    <TextView
+        android:id="@+id/forgetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="69dp"
+        android:text="Forget Password? Recover"
+        android:textSize="20sp"/>
 
 
 </RelativeLayout>

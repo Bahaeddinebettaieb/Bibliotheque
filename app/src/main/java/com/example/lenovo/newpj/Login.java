@@ -1,13 +1,18 @@
 package com.example.lenovo.newpj;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -27,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
+    TextView forgetPassword;
     EditText email;
     EditText password;
     Button login;
@@ -44,8 +50,16 @@ public class Login extends AppCompatActivity {
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
         login = (Button)findViewById(R.id.login);
+        forgetPassword = (TextView)findViewById(R.id.forgetPassword);
 
         mAuth = FirebaseAuth.getInstance();
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showRecoverPasswordDialog();
+            }
+        });
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -65,6 +79,56 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startSignIn();
+            }
+        });
+    }
+
+    private void showRecoverPasswordDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Recover Password");
+        LinearLayout linearLayout = new LinearLayout(this);
+        final EditText emailEt = new EditText(this);
+        emailEt.setHint("Email");
+        emailEt.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailEt.setMinEms(10);
+
+        linearLayout.addView(emailEt);
+        linearLayout.setPadding(10,10,10,10);
+
+        builder.setView(linearLayout);
+
+        builder.setPositiveButton("Recover", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String email = emailEt.getText().toString().trim();
+                beginRecovery(email);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
+
+    private void beginRecovery(String email) {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(Login.this, "Email sent...", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(Login.this, "Failed...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Login.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
