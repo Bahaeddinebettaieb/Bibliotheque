@@ -75,12 +75,12 @@ public class Register extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        choiseImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openGallery();
-            }
-        });
+//        choiseImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openGallery();
+//            }
+//        });
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +116,7 @@ public class Register extends AppCompatActivity {
                     occupation = admin.getText().toString().trim();
                 }
 
-                boolean block = user.isBlocked();
+                boolean block = false;
 
                 user = new User(nomPrenomTest,emailTest,passwordTest,phoneTest,occupation,block);
                 registerUser(emailTest,passwordTest);
@@ -126,26 +126,26 @@ public class Register extends AppCompatActivity {
 
     }
 
-    private void openGallery(){
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        gallery.setType("image/*");
-        startActivityForResult(gallery, PICK_IMAGE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null && data.getData() !=null){
-            filePath =data.getData();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
-                imageToUpload.setImageBitmap(bitmap);
-            }
-            catch (IOException e){
-                e.printStackTrace();
-            }
-        }
-    }
+//    private void openGallery(){
+//        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+//        gallery.setType("image/*");
+//        startActivityForResult(gallery, PICK_IMAGE);
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+//        super.onActivityResult(requestCode,resultCode,data);
+//        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null && data.getData() !=null){
+//            filePath =data.getData();
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),filePath);
+//                imageToUpload.setImageBitmap(bitmap);
+//            }
+//            catch (IOException e){
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     public void registerUser(String email, String password){
         progressDialog.setMessage("En train d'enregistrer");

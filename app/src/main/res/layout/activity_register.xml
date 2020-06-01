@@ -104,20 +104,21 @@
                 android:textColor="#000"
                 android:textSize="20dp" />
 
-            <ImageView
-                android:id="@+id/imageIv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="200dp"/>
+            <!--<ImageView-->
+                <!--android:id="@+id/imageIv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:minHeight="200dp"/>-->
 
 
-            <Button
-                android:id="@+id/register"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:background="#d5ead3"
-                android:text="@string/s_inscrire" />
+        <Button
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#d5ead3"
+            android:layout_gravity="center"
+            android:text="@string/s_inscrire" />
 
     </LinearLayout>
 

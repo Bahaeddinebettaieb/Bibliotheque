@@ -205,7 +205,7 @@
 
 
             <android.support.v7.widget.CardView
-                android:id="@+id/message"
+                android:id="@+id/changePassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
@@ -227,8 +227,8 @@
                         android:src="@drawable/msg" />
 
                     <TextView
-                        android:textSize="17sp"
-                        android:text="Message"
+                        android:textSize="15dp"
+                        android:text="Changer Mot de Passe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
