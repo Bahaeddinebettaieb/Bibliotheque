@@ -32,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
-    TextView forgetPassword;
+    TextView forgetPassword,areYouRegisted;
     EditText email;
     EditText password;
     Button login;
@@ -44,13 +44,21 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_login);
+
         email = (EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
         login = (Button)findViewById(R.id.login);
         forgetPassword = (TextView)findViewById(R.id.forgetPassword);
+        areYouRegisted = (TextView)findViewById(R.id.areYouRegisted);
+
+        areYouRegisted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(Login.this,Register.class);
+                startActivity(registerIntent);
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -60,7 +68,6 @@ public class Login extends AppCompatActivity {
                 showRecoverPasswordDialog();
             }
         });
-
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -190,5 +197,4 @@ public class Login extends AppCompatActivity {
               }
           });
       }
-
 }
