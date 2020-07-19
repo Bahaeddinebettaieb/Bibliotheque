@@ -149,6 +149,7 @@ public class Login extends AppCompatActivity {
     private void startSignIn(){
       String emailTest = email.getText().toString();
       String passwordTest = password.getText().toString();
+
       if (TextUtils.isEmpty(emailTest)){
           Toast.makeText(Login.this,"Fields are Empty",Toast.LENGTH_LONG).show();
       }
@@ -184,6 +185,8 @@ public class Login extends AppCompatActivity {
                           DatabaseReference mDatabase = database.getReference("USER");
                           mDatabase.child(uid).setValue(hashMap);
                       }
+                      FirebaseUser use ;
+                      //use.ge
                       startActivity(new Intent(Login.this,Dashboard.class));
                   }else{
                       Toast.makeText(Login.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();

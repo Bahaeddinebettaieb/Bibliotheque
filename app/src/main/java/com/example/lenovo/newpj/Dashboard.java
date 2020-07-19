@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Dashboard extends AppCompatActivity {
-    CardView ajouterUtilisateur,ajouterLivre,gestionLivre,profileUtilisteur,logout,message ;
+    CardView ajouterUtilisateur,ajouterLivre,gestionLivre,profileUtilisteur,logout,message,donneur ;
     BottomNavigationView navigation;
     Toolbar toolbar;
     FirebaseAuth firebaseAuth;
@@ -67,6 +67,15 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(addBookIntent);
             }
         });
+
+//        donneur.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent addBookIntent = new Intent(Dashboard.this,AddBook.class);
+//                startActivity(addBookIntent);
+//            }
+//        });
 
         gestionLivre.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,7 +13,7 @@ import java.util.TimerTask;
 public class Main2Activity extends AppCompatActivity {
     Button etudiant;
     Button enseignant;
-    Button admin;
+    Button admin,donneur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class Main2Activity extends AppCompatActivity {
         etudiant = (Button)findViewById(R.id.etudiant);
         enseignant = (Button)findViewById(R.id.enseignant) ;
         admin = (Button)findViewById(R.id.admin);
+        donneur = (Button)findViewById(R.id.donneur);
 
 
         etudiant.setOnClickListener(new View.OnClickListener(){
@@ -44,6 +45,15 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View view ){
                 Intent registerIntent = new Intent(Main2Activity.this,Login.class);
                 startActivity(registerIntent);
+            }
+        });
+
+        donneur.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view ){
+                Intent addBookIntent = new Intent(Main2Activity.this,AddBook.class);
+                startActivity(addBookIntent
+                );
             }
         });
 
